@@ -49,7 +49,6 @@ class TestBaseballGame(unittest.TestCase):
         self.assertEqual(False, bg.is_validated_number("110"))
         self.assertEqual(False, bg.is_validated_number("111"))
 
-
     def test_get_not_duplicated_three_digit_number(self):
         for i in range(5000):
             is_duplicated = self.is_duplicated_number(
@@ -120,7 +119,7 @@ class TestBaseballGame(unittest.TestCase):
             with patch('sys.stdout', new=StringIO()) as fakeOutput:
                 bg.main()
                 console = fakeOutput.getvalue().strip().split("\n")
-                for i in range(2,6):
+                for i in range(2, 6):
                     self.assertTrue("WRONG INPUT" in console[i].upper())
 
         input_list = [str(value) for value in range(101, 1000)]
@@ -157,7 +156,7 @@ class TestBaseballGame(unittest.TestCase):
                                 str(ball), console[i + 2].upper())
                     elif int(input_list[i]) > int(target_number):
                         self.assertTrue(
-                                "WRONG INPUT" in console[i + 2].upper())
+                            "WRONG INPUT" in console[i + 2].upper())
                     elif int(input_list[i]) == int(target_number):
                         self.assertIn(str(3), console[i + 2].upper())
                         self.assertIn(str(0), console[i + 2].upper())
@@ -182,7 +181,7 @@ class TestBaseballGame(unittest.TestCase):
                                     str(ball), console[i + 2].upper())
                         elif int(input_list[i]) > int(target_number):
                             self.assertTrue(
-                                    "WRONG INPUT" in console[i + 2].upper())
+                                "WRONG INPUT" in console[i + 2].upper())
                         elif int(input_list[i]) == int(target_number):
                             self.assertIn(str(3), console[i + 2].upper())
                             self.assertIn(str(0), console[i + 2].upper())
@@ -200,14 +199,12 @@ class TestBaseballGame(unittest.TestCase):
                             self.assertIn(
                                 "End of the Game".upper(), console[i + 3].upper())
 
-
     def is_no(self, one_more_input):
         if one_more_input.upper() == 'NO':
             return True
         if one_more_input.upper() == 'N':
             return True
         return False
-
 
     def is_duplicated_number(self, three_digit):
         for number in three_digit:
