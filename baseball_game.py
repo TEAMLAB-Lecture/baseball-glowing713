@@ -86,45 +86,34 @@ def main():
 
         while True:
             user_input = input('Input guess number : ')
-            # <특수조건> 사용자가 게임 중 0을 입력하면 게임을 종료해야 한다.
-            if user_input == '0':
-                next_game = False
-                break
 
             # 잘못된 숫자를 입력했다면 오류메세지 출력하고 다시 입력을 받는다.
             if not is_validated_number(user_input):
-                print('Wrong Input, Input again')
+                # <특수조건> 사용자가 게임 중 0을 입력하면 게임을 종료해야 한다.
+                if user_input == '0':
+                    next_game = False
+                    break
+                else:
+                    print('Wrong Input')
+                    continue
 
             # 제대로 입력. 야구게임 연산 시작
-            else:
-
-                strike, ball = get_strikes_or_ball(user_input, random_number)
-                if strike == 3 and ball == 0:
-                    # 정답을 맞춤
-                    want_next = input('You win, one more(Y/N)?')
-                    # <특수조건> 사용자가 게임 중 0을 입력하면 게임을 종료해야 한다.
-                    if user_input == '0':
+            strike, ball = get_strikes_or_ball(user_input, random_number)
+            print(f'Strikes : {strike}, Balls : {ball}')
+            if strike == 3 and ball == 0:
+                # 정답을 맞춤
+                while True:
+                    # 게임을 더 할 의향이 있는지 물어보기. 문법 틀리게 입력하면 다시 입력받기.
+                    want_next = input('You win, one more? (Y/N)')
+                    if is_yes(want_next):
+                        next_game = True
+                        break
+                    elif is_no(want_next):
                         next_game = False
                         break
-                    # 게임을 더 할 의향이 있는지 물어보기. 문법 틀리게 입력하면 다시 입력받기.
-                    while True:
-                        # <특수조건> 사용자가 게임 중 0을 입력하면 게임을 종료해야 한다.
-                        if want_next == '0':
-                            next_game = False
-                            break
-                        elif is_yes(want_next):
-                            next_game = True
-                            break
-                        elif is_no(want_next):
-                            next_game = False
-                            break
-                        else:
-                            print('Wrong Input, Input again')
-                            want_next = input('You win, one more(Y/N)?')
-                    break
-
-                else:
-                    print(f'Strikes : {strike} , Balls : {ball}')
+                    else:
+                        print('Wrong Input')
+                break
 
     print("Thank you for using this program")
     print("End of the Game")
