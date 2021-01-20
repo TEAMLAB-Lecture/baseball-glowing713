@@ -75,51 +75,43 @@ def is_no(one_more_input):
 
 
 def main():
-    next_game = True
     print("Play Baseball")
 
-    # ########
-    # 3 스트라이크를 하고 다음 게임을 이어가지 않거나
-    # 게임 도중 0을 입력할 때까지 게임은 무한 반복
-    # #########
-    while next_game:
+    The_end = False
+    while True:
         user_input = 999
         random_number = str(get_not_duplicated_three_digit_number())
         print("Random Number is : ", random_number)
-        ######### 3 스트라이크가 나올 때까지 반복하는 부분 #########
-        while True:
+
+        while user_input != random_number:
             user_input = input('Input guess number : ')
-            # 게임 도중 0을 입력하면 즉시 종료
-            if user_input == '0':
+            if user_input == "0":
+                The_end = True
                 break
 
-            # 사용자의 올바른 입력 유도
-            while not is_validated_number(user_input):
-                print('Wrong Input, Input again')
-                user_input = input('Input guess number : ')
+            if is_validated_number(user_input) == False:
+                print("Wrong Input, Input again")
+                continue
 
-            # 스트라이크, 볼 판정
-            strike, ball = get_strikes_or_ball(user_input, random_number)
-            print(f'Strikes : {strike} , Balls : {ball}')
-            # 3 스트라이크에 종료
-            if strike == 3 and ball == 0:
-                break
+            result = list()
+            result = get_strikes_or_ball(user_input, random_number)
+            print(f"Strikes : {result[0]} , Balls : {result[1]}")
 
-        # 게임 도중에 사용자가 0을 입력해서 종료된 경우, 완전히 게임을 멈춘다.
-        if user_input == '0':
+        if The_end:
             break
 
-        ######### 다음 게임 진행 여부를 올바르게 입력할 때까지 반복하는 부분 #########
         while True:
-            next_game_str = input('You win, one more(Y/N)?')
-            if is_yes(next_game_str):
-                next_game = True
+            one_more_time = input("You win, one more(Y/N)?")
+            if is_yes(one_more_time) or is_no(one_more_time):
                 break
-            elif is_no(next_game_str):
-                next_game = False
-                break
-            else:
-                print('Wrong Input, Input again')
+            print("Wrong Input, Input again")
+
+        if is_yes(one_more_time):
+            continue
+        elif is_no(one_more_time):
+            break
+
+    # ==================================
     print("Thank you for using this program")
     print("End of the Game")
 
