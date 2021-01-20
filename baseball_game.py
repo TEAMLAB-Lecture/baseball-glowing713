@@ -49,15 +49,11 @@ def get_not_duplicated_three_digit_number():
 
 def get_strikes_or_ball(user_input_number, random_number):
     result = [0, 0]  # [strikes, balls]
-    for i in range(3):
-        # strike
-        if user_input_number[i] == random_number[i]:
-            result[0] += 1
-        # ball
-        else:
-            if user_input_number[i] in random_number[i+1:]:
-                result[1] += 1
-            if random_number[i] in user_input_number[i+1:]:
+    for number in user_input_number:
+        if number in random_number:
+            if user_input_number.index(number) is random_number.index(number):
+                result[0] += 1
+            else:
                 result[1] += 1
     return result
 
